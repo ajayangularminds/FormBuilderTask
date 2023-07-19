@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="p-4" (ngSubmit)="submit()">
+
+        <p class="text-secondary fs-3">Form Renderer</p>
+        <hr>
+
+        <div *ngFor="let item of customArr;let ind=index">
+            <div class="mb-3 position-relative" *ngIf="item.type=='text' || item.type=='email' || item.type=='password' || item.type=='number'">
+                <label for="formGroupExampleInput" class="form-label">{{item?.label}}</label>
+                <input type="{{item.type}}" class="form-control" id="formGroupExampleInput" [(ngModel)]="item.value">
+           
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+            </div>
+
+            <div class="mb-3 position-relative" *ngIf="item.type=='select'">
+                <label for="formGroupExampleInput" class="form-label">{{item?.label}} : </label>
+                <select #sel (change)="changeVal(ind,sel.value)" class="form-select" aria-label="Default select example">
+                    <option *ngFor="let i of item.options" value="{{i}}">{{i}}</option>
+                </select>
+
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+
+            </div>
+
+            <div class="mb-3 position-relative" *ngIf="item.type=='radio'">
+                <label for="formGroupExampleInput" class="form-label">{{item?.label}}</label>
+                <div class="form-check">
+                    <div *ngFor="let radio of item.options" (click)="changeVal(ind,radio)" >
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          {{radio}}
+                        </label>
+                    </div>
+                </div>  
+                
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+            
+            </div>
+
+            <div class="mb-3 position-relative" *ngIf="item.type=='checkbox'">
+                <label for="formGroupExampleInput" class="form-label">{{item?.label}}</label>
+                
+                <div class="d-flex">
+                    <div class="form-check mx-2" (click)="changeVal(ind,check)" *ngFor="let check of item.options">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                           {{check}}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+
+            </div>
+
+
+            <div class="col-12 my-3 position-relative" *ngIf="item.type=='date'">
+                <input type="date" #opVal (change)="changeVal(ind,opVal.value)"  class="form-control" placeholder="Please Enter Options">
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+            
+            </div>
+
+            <div class="col-12 my-3 position-relative" *ngIf="item.type=='color'">
+                <label for="exampleColorInput" class="form-label">{{item.label}}</label>
+                <input type="color"  #opVal (change)="changeVal(ind,opVal.value)" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+           
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+           
+            </div>
+
+            <div class="col-12 my-3 position-relative" *ngIf="item.type=='image' || item.type=='file'">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">{{item.label}}</label>
+                    <input class="form-control" type="file" id="formFile" (change)="addFile(ind,$event)">
+                </div>
+
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+            </div>
+
+            <div class="col-12 my-3 position-relative" *ngIf="item.type=='textarea'">
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">{{item.label}}</label>
+                    <textarea class="form-control"  id="exampleFormControlTextarea1" [(ngModel)]="item.value" rows="3"></textarea>
+                </div>
+
+                <div class="position-absolute top-0 end-0" (click)="deleteItem(ind)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </div>
+        
+            </div>
+
+           
+        </div>
+
+        <button (click)="submit()" class="btn btn-primary" [disabled]="customArr.length==0">Submit</button>
+    </div>
+</div>
